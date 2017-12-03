@@ -20,11 +20,11 @@ if(config.util.getEnv('NODE_ENV') !== 'test') {
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
+
 
 app.get('/', function(req,res,next){
-	if (req.some) {
-		logger(req.some);
-	}
+  
 })
 
 require('./app/config/passport.js');
