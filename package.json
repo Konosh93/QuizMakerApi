@@ -1,5 +1,5 @@
 {
-  "name": "full-stack node-express-react-mongo",
+  "name": "quiz-maker",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
