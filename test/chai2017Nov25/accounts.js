@@ -111,11 +111,30 @@ describe('User', () => {
 	          .post('/api/accounts/signup')
 	          .send({user})
 	          .end((err, res) => {
-	              res.should.have.status(200);
+	              res.should.have.status(201);
 	              res.body.should.be.a('object');
 	              res.body.should.have.property('user');
 	              res.body.user.should.have.property('name');
 	              res.body.user.should.have.property('token');
+	              done();
+	          });
+	    });
+  	});
+
+	describe('/POST login', () => {
+	    it('it should NOT POST user info with wrong password', (done) => {
+	      const user = {
+	          email: 'bat@man.com',
+	          password: 'wrong-password',
+	      };
+	      chai.request(server)
+	          .post('/api/accounts/login')
+	          .send({user})
+	          .end((err, res) => {
+	              res.should.have.status(422);
+	              res.body.should.be.a('object');
+	              res.body.should.have.property('errors');
+	              res.body.err.should.have.property('password');
 	              done();
 	          });
 	    });

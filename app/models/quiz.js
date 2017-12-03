@@ -4,17 +4,21 @@ var slug = require('slug');
 var User = mongoose.model('User');
 
 var QuizSchema = new mongoose.Schema({
-	title: String,
+	title: {type: String, default: 'New Quiz'},
 	slug: {type: String, unique: true, lowercase: true},
 	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	problems: [
 		{
-			question: {type: String},
-			choices: [{type: String}],
+			id: String,
+			question: {},
+			choices: [{
+				id: String,
+				choice: {},
+			}],
 			correct: String,
 		}
 	],
-}, {timestamps: true});
+}, {timestamps: true, strict:false, minimize: false});
 
 QuizSchema.plugin(uniqueValidator, {message: 'is already taken'});
 

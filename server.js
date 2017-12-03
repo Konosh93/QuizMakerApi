@@ -1,5 +1,5 @@
 var express = require('express'),
-	port = process.env.PORT || 3000,
+	port = process.env.PORT || 3001,
  	passport = require('passport'),
  	bodyParser = require('body-parser'),
  	morgan = require('morgan'),
@@ -29,6 +29,11 @@ app.get('/', function(req,res,next){
 
 require('./app/config/passport.js');
 
+/* historyFallBack to serve index.html in case of refresh
+app.get('/*', (req, res) => {
+	res.sendFile('../fe/server/index.html');
+})
+*/
 app.use('/api', require('./app/routes/api'));
 
 if(!module.parent){ 

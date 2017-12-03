@@ -23,7 +23,8 @@ userSchema.methods.validPassword = function(password){
 	hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex')
 	return hash === this.hash;
 }
-
+/* Original */
+/*
 userSchema.methods.generateJWT = function(){
 	var today = new Date();
 	var exp = new Date(today);
@@ -32,6 +33,16 @@ userSchema.methods.generateJWT = function(){
 		id: this._id,
 		name: this.name,
 		exp: parseInt(exp.getTime() / 1000)
+	}, secret)
+}
+*/
+
+/* 10 mins */
+userSchema.methods.generateJWT = function(){
+	return jwt.sign({
+		id: this._id,
+		name: this.name,
+		exp: parseInt(Date.now()+600000)
 	}, secret)
 }
 
